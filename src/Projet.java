@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.chrono.MinguoChronology;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Projet{
     static BufferedImage bi;
@@ -73,15 +74,37 @@ public class Projet{
         }
     }
 
+    public static double score(double[][] centres,double[][] ecarts, double[] ro, double[] data ){
+
+        double res = 0;
+        double tmp = 1;
+        for (int i = 0; i < centres.length; i++){
+            for (int j = 0; j < data.length; j++){
+                tmp = tmp * (1/Math.sqrt(2*Math.PI*Math.pow(ecarts[i][j],2)))*Math.exp(-Math.pow(data[j]-centres[i][j],2)/(2*Math.pow(ecarts[i][j],2)));
+            }
+            res += ro[i] * tmp;
+            tmp = 1;
+        }
+        return Math.log(res);
+    }
+
+
     public static double round(double a){
         return Math.round(a*100)/100.;
     }
 
     public static void main(String[] args) throws IOException {
+        Random rand = new Random();
+
         String res = "";
 
         String path = "./";
         String imageMMS = path + "mms.png";
+
+        //Nombre de Gaussiennes
+        int K = 6;
+        //Dimention
+        int D = 3;
 
         // Lecture de l'image ici
         BufferedImage bui = ImageIO.read(new File(imageMMS));
@@ -95,16 +118,16 @@ public class Projet{
             tabColor[i] = new Color(im_pixels[i]);
         }
 
-        double[][] data = new double[height*width][3];
+        double[][] data = new double[height*width][D];
         for (int i=0; i<tabColor.length;i++){
             data[i][0] = Math.round(tabColor[i].getRed()*100/255.0)/100.;
             data[i][1] = Math.round(tabColor[i].getGreen()*100/255.0)/100.;
             data[i][2] = Math.round(tabColor[i].getBlue()*100/255.0)/100.;
         }
 
-        double[][] centres = new double[6][3];
-        double[][] ecarts = new double[6][3];
-        double[] ro = new double[6];
+        double[][] centres = new double[K][D];
+        double[][] ecarts = new double[K][D];
+        double[] ro = new double[K];
 
         for (int i = 0; i< 6; i++){
             ro[i] = 1.0/6;
@@ -127,7 +150,16 @@ public class Projet{
         //Orange
         centres[5][0] = 0.91; centres[5][1]= 0.35 ; centres[5][2]= 0.06;
 
-        double eps=0.001;
+
+        //Partie pour assigner les centres de facons aleatoire
+//        for (int i = 0; i < centres.length; i++){
+//            for (int j = 0; j < centres[i].length; j++){
+//                centres[i][j] = rand.nextDouble();
+//            }
+//        }
+
+
+        double eps=0.01;
         double maj = 10;
 
         double [][] a = MixGauss.Assigner(data, centres, ro, ecarts);
@@ -136,7 +168,7 @@ public class Projet{
             a = MixGauss.Assigner(data, centres, ro, ecarts);
         }
 
-        Color[] centres2 = new Color[6];
+        Color[] centres2 = new Color[K];
         for (int i = 0; i< centres.length; i++){
                 centres2[i] = new Color((int)(centres[i][0] * 255 ),(int)(centres[i][1] *255 ),(int)(centres[i][2]* 255));
                 System.out.println(centres2[i].toString());
@@ -149,8 +181,8 @@ public class Projet{
         }
         System.out.println(Arrays.deepToString(centres));
         System.out.println(Arrays.deepToString(ecarts));
-        for (int i = 0; i < ro.length;i++){
-            System.out.print(ro[i] + " ");
+        for (double v : ro) {
+            System.out.print(v + " ");
         }
 
     }
