@@ -75,10 +75,10 @@ public class Projet{
 
 
     public static void main(String[] args) throws IOException {
-        String imageMMS = "mms.png";
+        String imageMMS = "image2.png";
 
         double[][] data = Results.loadDatafromImage(imageMMS);
-        double[][] centres = new double[6][3];
+        double[][] centres = MixGauss.createCentre(8, 3, 0, 1);
         double[][] ecarts = new double[centres.length][3];
         double[] ro = new double[centres.length];
 
@@ -87,19 +87,6 @@ public class Projet{
             Arrays.fill(ecarts[i], 0.3);
         }
 
-        //On place les centres là où ça nous arrange
-        //Vert
-        centres[0][0] = 0.39; centres[0][1]= 0.80 ; centres[0][2]= 0.29;
-        //Bleu...
-        centres[1][0] = 0.09; centres[1][1]= 0.42 ; centres[1][2]= 0.78;
-        //Rouge...
-        centres[2][0] = 0.83; centres[2][1]= 0.4 ; centres[2][2]= 0.4;
-        //Noir...
-        centres[3][0] = 0.1; centres[3][1]= 0.1 ; centres[3][2]= 0.05;
-        //Jaune..
-        centres[4][0] = 0.89; centres[4][1]= 0.87 ; centres[4][2]= 0.1;
-        //Orange
-        centres[5][0] = 0.91; centres[5][1]= 0.35 ; centres[5][2]= 0.06;
 
         double eps=0.01;
         double maj = 10;
@@ -110,24 +97,24 @@ public class Projet{
             a = MixGauss.Assigner(data, centres, ro, ecarts);
         }
 
-        Color[] centres2 = new Color[6];
+        Color[] centres2 = new Color[centres.length];
         for (int i = 0; i< centres.length; i++){
-                centres2[i] = new Color((int)(centres[i][0] * 255 ),(int)(centres[i][1] *255 ),(int)(centres[i][2]* 255));
-                System.out.println(centres2[i].toString());
+            int color = Color.HSBtoRGB((float)centres[i][0], (float) centres[i][1], (float) centres[i][2]);
+            centres2[i] = new Color(color);
+            System.out.println(centres2[i].toString());
         }
 
         for (int i = 0; i < centres.length;i++){
             BufferedImage bui_out = new BufferedImage(1,1,BufferedImage.TYPE_3BYTE_BGR);
             bui_out.setRGB(0,0,centres2[i].getRGB());
-            ImageIO.write(bui_out, "PNG", new File("couleur"+i+".png"));
+            ImageIO.write(bui_out, "PNG", new File("Results/Centres/couleur"+i+".png"));
         }
 
         System.out.println(Arrays.deepToString(centres));
         System.out.println(Arrays.deepToString(ecarts));
         System.out.println(Arrays.toString(ro));
 
-        double[] test = {0.894, 0.827, 0.639};
-        System.out.println("ici : " + MixGauss.belongTo(test, centres, ro, ecarts));
+        Results.separateImage(imageMMS, centres, ro, ecarts);
 
     }
 }

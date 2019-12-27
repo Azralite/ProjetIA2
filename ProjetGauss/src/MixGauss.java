@@ -6,13 +6,19 @@ import java.util.Random;
 
 public class MixGauss {
 
-    public static final int D=3; // deux dimensions
-    public static final int k=6; // deux gausssiennes
-
     private static final int NB_POINTS = 1000;
 
     public static Random rand = new Random();
 
+    public static double[][] createCentre(int nb, int dim, float min, float max){
+        double[][] res = new double[nb][dim];
+        for(int i = 0; i<nb; i++){
+            for(int j = 0; j<dim; j++){
+                res[i][j] = (rand.nextDouble() + min) * max;
+            }
+        }
+        return res;
+    }
 
     public static int min(double[] tab){
         double min = tab[0];
@@ -33,7 +39,6 @@ public class MixGauss {
         }
         return Math.sqrt(res);
     }
-
 
 
 
