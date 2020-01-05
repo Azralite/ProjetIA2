@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="84fc165e-7e4d-4407-8554-9448f7ce1ed1" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1VIHXI05COv0A8mufhW0WKMtjAD" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Bureau/ProjetIA2-master" />
+    <property name="restartRequiresConfirmation" value="false" />
+  </component>
+  <component name="RunManager" selected="Application.Compression">
+    <configuration name="Compression" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Compression" />
+      <module name="ProjetGauss" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Point3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Point3" />
+      <module name="ProjetGauss" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Point5" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Point5" />
+      <module name="ProjetGauss" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Projet" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Projet" />
+      <module name="ProjetGauss" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Projet_Point1" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Projet_Point1" />
+      <module name="ProjetGauss" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Compression" />
+        <item itemvalue="Application.Point3" />
+        <item itemvalue="Application.Point5" />
+        <item itemvalue="Application.Projet_Point1" />
+        <item itemvalue="Application.Projet" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="84fc165e-7e4d-4407-8554-9448f7ce1ed1" name="Default Changelist" comment="" />
+      <created>1576933726125</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1576933726125</updated>
+      <workItem from="1576933731201" duration="1605000" />
+      <workItem from="1576935699445" duration="1023000" />
+      <workItem from="1576936829108" duration="232000" />
+      <workItem from="1577362041896" duration="3029000" />
+      <workItem from="1577369003990" duration="3314000" />
+      <workItem from="1577372470102" duration="648000" />
+      <workItem from="1577467898309" duration="480000" />
+      <workItem from="1577758197203" duration="19000" />
+      <workItem from="1577896422766" duration="3000" />
+      <workItem from="1577968133670" duration="420000" />
+      <workItem from="1577989811546" duration="6000" />
+      <workItem from="1577990008905" duration="56000" />
+      <workItem from="1577990554332" duration="352000" />
+      <workItem from="1578151237421" duration="8080000" />
+      <workItem from="1578200075044" duration="972000" />
+      <workItem from="1578227594086" duration="25000" />
+      <workItem from="1578229019666" duration="6479000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="583" y="222" width="424" height="493" key="FileChooserDialogImpl" timestamp="1578227615854">
+      <screen x="0" y="28" width="1600" height="872" />
+    </state>
+    <state x="583" y="222" width="424" height="493" key="FileChooserDialogImpl/0.28.1600.872@0.28.1600.872" timestamp="1578227615854" />
+    <state width="1558" height="358" key="GridCell.Tab.0.bottom" timestamp="1578243701959">
+      <screen x="0" y="28" width="1600" height="872" />
+    </state>
+    <state width="1558" height="358" key="GridCell.Tab.0.bottom/0.28.1600.872@0.28.1600.872" timestamp="1578243701959" />
+    <state width="1558" height="358" key="GridCell.Tab.0.center" timestamp="1578243701958">
+      <screen x="0" y="28" width="1600" height="872" />
+    </state>
+    <state width="1558" height="358" key="GridCell.Tab.0.center/0.28.1600.872@0.28.1600.872" timestamp="1578243701958" />
+    <state width="1558" height="358" key="GridCell.Tab.0.left" timestamp="1578243701957">
+      <screen x="0" y="28" width="1600" height="872" />
+    </state>
+    <state width="1558" height="358" key="GridCell.Tab.0.left/0.28.1600.872@0.28.1600.872" timestamp="1578243701957" />
+    <state width="1558" height="358" key="GridCell.Tab.0.right" timestamp="1578243701958">
+      <screen x="0" y="28" width="1600" height="872" />
+    </state>
+    <state width="1558" height="358" key="GridCell.Tab.0.right/0.28.1600.872@0.28.1600.872" timestamp="1578243701958" />
+    <state x="0" y="28" width="837" height="872" key="find.popup" timestamp="1578152516355">
+      <screen x="0" y="28" width="1600" height="872" />
+    </state>
+    <state x="0" y="28" width="837" height="872" key="find.popup/0.28.1600.872@0.28.1600.872" timestamp="1578152516355" />
+  </component>
+</project>
