@@ -1,31 +1,8 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.Random;
 
 public class MixGauss {
 
-    public static final int D=3; // deux dimensions
-    public static final int k=6; // deux gausssiennes
-
-    private static final int NB_POINTS = 1000;
-
-    public static Random rand = new Random();
-
-
-    public static int min(double[] tab){
-        double min = tab[0];
-        int indice = 0;
-        for (int i =1; i < tab.length; i++){
-            if (tab[i] < min){
-                min = tab[i];
-                indice = i;
-            }
-        }
-        return indice;
-    }
-
+    // Fonction qui calcule la distance entre deux points
     public static double dist(double[] a, double[] b){
         double res = 0d;
         for (int i = 0; i < a.length; i++){
@@ -35,53 +12,7 @@ public class MixGauss {
     }
 
 
-
-
-    public static double[] gaussian(double ecart, double esp, int min, int max){
-        double[] res = new double[NB_POINTS];
-        double x = min;
-        double padding = (double) (max - min) / (double) (NB_POINTS - 1);
-        for(int i = 0; i<NB_POINTS; i++){
-            res[i] = (1.0 / (Math.sqrt(2 * Math.PI * ecart))) * Math.exp(- Math.pow(x - esp, 2) / (2 * ecart));
-            x += padding;
-        }
-        return res;
-    }
-
-    public static void save_gausian1D(double[][] gaussians, int min, int max, String path) throws IOException {
-        double[] ys = new double[gaussians[0].length];
-        for(int i = 0; i<gaussians.length; i++){
-            for(int j = 0; j<gaussians[i].length; j++){
-                ys[j] += gaussians[i][j];
-            }
-        }
-        File ff = new File(path);
-        ff.createNewFile();
-        FileWriter file = new FileWriter(ff);
-        double x = min;
-        double padding = (double) (max - min) / (double) (NB_POINTS - 1);
-        for (double y : ys) {
-            file.write(x + " " + y);
-            file.write('\n');
-            x += padding;
-        }
-
-        file.close();
-
-    }
-
-    public static void save_gaussian1D(double ecart, double esp, int min, int max, String path) throws IOException {
-        File ff = new File(path);
-        ff.createNewFile();
-        FileWriter file = new FileWriter(ff);
-        for(double i = min; i<=max; i+=0.01){
-            double y = (1.0 / (Math.sqrt(2 * Math.PI * ecart))) * Math.exp(- Math.pow(i - esp, 2) / (2 * ecart));
-            file.write(i + " " + y);
-            file.write('\n');
-        }
-        file.close();
-    }
-
+    // Fonction qui calcule un numérateur de rk
     public static double likelihood_num(double[] X, double[][] centres, double[] ro, double[][] ecarts, int k){
         double res = ro[k];
         for(int i = 0; i<X.length; i++){
@@ -90,6 +21,7 @@ public class MixGauss {
         return res;
     }
 
+    // Fonction qui calcule rk pour l'assignement
     public static double likelihood(double[] X, double[][] centres, double[] ro, double[][] ecarts, int k){
         double num = likelihood_num(X, centres, ro, ecarts, k);
         double denom = 0;
@@ -99,6 +31,36 @@ public class MixGauss {
         return num/denom;
     }
 
+
+    // Fonction qui calcule Rk
+    public static double Rk(double[][] assignement, int k){
+        double res = 0;
+        for(int i = 0; i<assignement.length; i++){
+            res += assignement[i][k];
+        }
+        return res;
+    }
+
+    // Fonction pour calculer le deplacement des sigma
+    public static double ecartk(double[][] X, double[][] centres, double[][] assignement, int k, int i){
+        double res = 0;
+        for(int d = 0; d<X.length; d++){
+            res += assignement[d][k] * Math.pow(X[d][i] - centres[k][i], 2);
+        }
+        return res/Rk(assignement, k);
+    }
+
+    // Fonction pour calculer le deplacement des centres
+    public static double mk(double[][] X, double[][] assignement, int k, int i){
+        double res = 0;
+        for(int d = 0; d<X.length; d++){
+            res += assignement[d][k] * X[d][i];
+        }
+        return res/Rk(assignement, k);
+    }
+
+
+    // Fonction qui assigne chaque point a une gaussienne
     public static double[][] Assigner(double[][] X, double[][] centres, double[] ro, double[][] ecarts){
         double[][] res = new double[X.length][centres.length];
         for(int i = 0; i<X.length; i++){
@@ -109,31 +71,8 @@ public class MixGauss {
         return res;
     }
 
-    public static double Rk(double[][] assignement, int k){
-        double res = 0;
-        for(int i = 0; i<assignement.length; i++){
-            res += assignement[i][k];
-        }
-        return res;
-    }
 
-    public static double ecartk(double[][] X, double[][] centres, double[][] assignement, int k, int i){
-        double res = 0;
-        for(int d = 0; d<X.length; d++){
-            res += assignement[d][k] * Math.pow(X[d][i] - centres[k][i], 2);
-        }
-        return res/Rk(assignement, k);
-    }
-
-    public static double mk(double[][] X, double[][] assignement, int k, int i){
-        double res = 0;
-        for(int d = 0; d<X.length; d++){
-            res += assignement[d][k] * X[d][i];
-        }
-        return res/Rk(assignement, k);
-    }
-
-
+    //Fonction qui deplace les centres, les sigma et les ro
     public static double Deplct(double[][] X, double[][] centres, double[] ro, double[][] ecarts, double[][] assignement){
         double ret = 0;
         for(int k = 0; k<centres.length; k++){
@@ -155,13 +94,19 @@ public class MixGauss {
     }
 
 
+    // Fonction pour tracer plusieurs gaussiennes en 3D avec Gnuplot
     public static void ecritDoubleGaussienne2D(double[][] centre, double[][] ecarts, double[] ro){
-        String tmp = "splot " +
-                "  (("+ro[0] +"* " + ro[0]+")/(2*3.14*" + ecarts[0][0] + "*" + ecarts[0][1]+"))*exp((-((x-"+ centre[0][0] + ")**2)/(2*("+ ecarts[0][0] +")**2))-(((y-"+centre[0][1]+")**2)/(2*("+ecarts[0][1]+")**2)))" +
-                "+ (("+ro[1] +"* " + ro[1]+")/(2*3.14*" + ecarts[1][0] + "*" + ecarts[1][1]+"))*exp((-((x-"+ centre[1][0] + ")**2)/(2*("+ ecarts[1][0] +")**2))-(((y-"+centre[1][1]+")**2)/(2*("+ecarts[1][1]+")**2)))" ;
+        int k = centre.length;
+        String tmp = "splot ";
+        for (int i = 0; i < k; i++){
+            tmp += "  (("+ro[k] +"* " + ro[k]+")/(2*3.14*" + ecarts[k][0] + "*" + ecarts[k][1]+"))*exp((-((x-"+ centre[k][0] + ")**2)/(2*("+ ecarts[k][0] +")**2))-(((y-"+centre[k][1]+")**2)/(2*("+ecarts[k][1]+")**2)))";
+        }
+
         TasGaussien.ecrire("please.gnu", tmp);
     }
 
+
+    // Fonction qui renvoie le centre auquel le point est assigné
     public static int belongTo(double[] X, double[][] centres, double[] ro, double[][] ecarts){
         double[][] data = new double[1][X.length];
         data[0] = X;
@@ -176,5 +121,31 @@ public class MixGauss {
         }
         return indice;
     }
+
+
+    // Fonction permettant de calculer le score pour une donnée
+    public static double score(double[][] centres,double[][] ecarts, double[] ro, double[] data ){
+
+        double res = 0;
+        double tmp = 1d;
+        for (int i = 0; i < centres.length; i++){
+            for (int j = 0; j < data.length; j++){
+                tmp = tmp * (1./Math.sqrt(2*Math.PI*ecarts[i][j]))*Math.exp(-1*(Math.pow(data[j]-centres[i][j],2)/(2*ecarts[i][j])));
+            }
+            res = res + (ro[i] * tmp);
+            tmp = 1;
+        }
+        return Math.log(res);
+    }
+
+    // Fonction qui prend un tableau de score et renvoie la moyenne
+    public static double scoreMoy(double[] score){
+        double res = 0;
+        for (int i = 0; i < score.length; i++){
+            res += score[i];
+        }
+        return res/score.length;
+    }
+
 
 }

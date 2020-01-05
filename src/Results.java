@@ -5,6 +5,8 @@ import javax.imageio.ImageIO;
         import java.io.IOException;
 
 public class Results {
+
+    // Charge une image et la transforme en double tableau. Chaque pixel une case avec 3 variables : HSB
     public static double[][] loadDatafromImage(String path) throws IOException {
         BufferedImage bui = ImageIO.read(new File(path));
 
@@ -27,6 +29,9 @@ public class Results {
         return data;
     }
 
+
+    // Fonction qui creer autant de fichier que de gaussienne
+    // Pour chaque gaussienne, elle affiche les points qui lui sont attribué et les autres en noir
     public static void separateImage(String image, double[][] centres, double[] ro, double[][] ecarts) throws IOException {
         BufferedImage bui = ImageIO.read(new File(image));
         for(int i = 0; i<centres.length; i++) {

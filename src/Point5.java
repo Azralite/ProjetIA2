@@ -17,30 +17,6 @@ public class Point5 {
         TasGaussien.ecrire("script.gnu",res);
     }
 
-    // Fonction permettant de calculer le score pour une donnée
-    public static double score(double[][] centres,double[][] ecarts, double[] ro, double[] data ){
-
-        double res = 0;
-        double tmp = 1d;
-        for (int i = 0; i < centres.length; i++){
-            for (int j = 0; j < data.length; j++){
-                tmp = tmp * (1./Math.sqrt(2*Math.PI*ecarts[i][j]))*Math.exp(-1*(Math.pow(data[j]-centres[i][j],2)/(2*ecarts[i][j])));
-            }
-            res = res + (ro[i] * tmp);
-            tmp = 1;
-        }
-        return Math.log(res);
-    }
-
-    // Fonction qui prend un tableau de score et renvoie la moyenne
-    public static double scoreMoy(double[] score){
-        double res = 0;
-        for (int i = 0; i < score.length; i++){
-            res += score[i];
-        }
-        return res/score.length;
-    }
-
 
     public static void main(String[] args) {
 
@@ -95,11 +71,11 @@ public class Point5 {
 
         double score[] = new double[data.length];
         for (int i = 0; i < data.length; i++){
-            score[i] = score(centre, ecarts, ro, data[i]);
+            score[i] = MixGauss.score(centre, ecarts, ro, data[i]);
         }
 
         // On affiche le score moyen
-        System.out.println("Le score moyen est de : " + scoreMoy(score));
+        System.out.println("Le score moyen est de : " + MixGauss.scoreMoy(score));
 
 
         // Partie pour afficher la gaussienne et l'histogramme
@@ -107,7 +83,7 @@ public class Point5 {
         for (int i = 0; i < tmp.length; i++) {
             tmp[i] = data[i][0];
         }
-        double[][] hist = TasGaussien.histogramme(-5,5,200, tmp);
+        double[][] hist = TasGaussien.histogramme(-4,6,500, tmp);
         double max = 0;
         for (int i = 0; i < hist[1].length;i++){
             if (hist[1][i] > max)
