@@ -145,6 +145,7 @@ public class MixGauss {
                 centres[k][d] = mk(X, assignement, k, d);
             }
 
+            double[][] test = centres.clone();
             ret += dist(old_centre, centres[k]);
             for(int d = 0; d<X[0].length; d++){
                 ecarts[k][d] = ecartk(X, centres, assignement, k, d);
@@ -161,5 +162,19 @@ public class MixGauss {
         TasGaussien.ecrire("please.gnu", tmp);
     }
 
+    public static int belongTo(double[] X, double[][] centres, double[] ro, double[][] ecarts){
+        double[][] data = new double[1][X.length];
+        data[0] = X;
+        double [][] prob = Assigner(data, centres, ro, ecarts);
+        double max = 0;
+        int indice = -1;
+        for(int i = 0; i<prob[0].length; i++){
+            if(prob[0][i] > max){
+                max = prob[0][i];
+                indice = i;
+            }
+        }
+        return indice;
+    }
 
 }
